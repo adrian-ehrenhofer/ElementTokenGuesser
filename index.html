@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This is a small game developed by Adrian Ehrenhofer to highlight aspects of tokenization in context of Materials Informatics.
+     The tool is intended for educational purposes and for fun.
+     The refactoring of the software from the original tool (https://github.com/ehrenhofer-group/LLM_Material_Property_Benchmark) was done with the help of Gemini 3.6 Flash (from Google) and manually checked. 
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Token Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="element_tokens.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="game-header">
+            <div class="header-title">
+                <h1 id="title-text">LLM Token Guessing Game</h1>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-box">
+                    <span class="stat-label" id="label-score">Score</span>
+                    <span class="stat-value" id="score-val">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label" id="label-rounds">Rounds</span>
+                    <span class="stat-value" id="rounds-val">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label" id="label-accuracy">Accuracy</span>
+                    <span class="stat-value" id="accuracy-val">0%</span>
+                </div>
+
+                <!-- Language Switcher in top bar -->
+                <div class="lang-switch">
+                    <button class="lang-btn" id="lang-de">🇩🇪 DE</button>
+                    <button class="lang-btn active" id="lang-en">🇬🇧 EN</button>
+                </div>
+
+                <button class="btn btn-secondary" id="btn-reset">Restart</button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="game-workspace">
+            <!-- Left Side: Periodic Table -->
+            <section class="table-section">
+                <div class="section-header">
+                    <h2 id="table-title">Periodic Table of Elements</h2>
+                    <p class="subtitle" id="table-subtitle">Select an element to decompose its name into tokens!</p>
+                </div>
+                <div class="table-container">
+                    <div class="periodic-table" id="periodic-table">
+                    </div>
+                </div>
+
+                <!-- Table Legend -->
+                <div class="table-legend">
+                    <div class="legend-item"><span class="legend-color nonmetals"></span> <span
+                            data-i18n="nonmetals">Nonmetals</span></div>
+                    <div class="legend-item"><span class="legend-color noblegases"></span> <span
+                            data-i18n="noblegases">Noble Gases</span></div>
+                    <div class="legend-item"><span class="legend-color alkalimetals"></span> <span
+                            data-i18n="alkalimetals">Alkali Metals</span></div>
+                    <div class="legend-item"><span class="legend-color alkalineearth"></span> <span
+                            data-i18n="alkalineearth">Alkaline Earth Metals</span></div>
+                    <div class="legend-item"><span class="legend-color metalloids"></span> <span
+                            data-i18n="metalloids">Metalloids</span></div>
+                    <div class="legend-item"><span class="legend-color transitionmetals"></span> <span
+                            data-i18n="transitionmetals">Transition Metals</span></div>
+                    <div class="legend-item"><span class="legend-color posttransition"></span> <span
+                            data-i18n="posttransition">Post-Transition Metals</span></div>
+                    <div class="legend-item"><span class="legend-color lanthanides"></span> <span
+                            data-i18n="lanthanides">Lanthanides</span></div>
+                    <div class="legend-item"><span class="legend-color actinides"></span> <span
+                            data-i18n="actinides">Actinides</span></div>
+                    <div class="legend-item"><span class="legend-color halogens"></span> <span
+                            data-i18n="halogens">Halogens</span></div>
+                </div>
+            </section>
+
+            <!-- Right Side: Game Interaction Panel -->
+            <section class="gameplay-section">
+                <!-- Info State (when no element is selected) -->
+                <div class="panel-card empty-state" id="panel-empty">
+                    <div class="icon-pulse">⚛️</div>
+                    <h3 id="empty-title">Ready to Guess?</h3>
+                    <p id="empty-text">Click on a chemical element in the periodic table on the left to start the game.
+                    </p>
+                </div>
+
+                <!-- Active Game Panel -->
+                <div class="panel-card active-game hidden" id="panel-game">
+                    <!-- Element Preview -->
+                    <div class="element-preview-header">
+                        <div class="element-badge" id="preview-badge">
+                            <span class="atomic-number" id="preview-number">6</span>
+                            <span class="symbol" id="preview-symbol">C</span>
+                        </div>
+                        <div class="element-details">
+                            <h3 id="preview-name">Carbon</h3>
+                            <span class="series-name" id="preview-series">Nonmetals</span>
+                        </div>
+                    </div>
+
+                    <!-- Guessing Prompt -->
+                    <div class="guessing-prompt" id="guessing-prompt-box">
+                        <p>How many <strong>Mistral tokens</strong> make up the English word <strong
+                                id="prompt-target-word">"Carbon"</strong>?</p>
+                    </div>
+
+                    <!-- Display for Current Input -->
+                    <div class="display-container">
+                        <div class="input-display" id="input-display">?</div>
+                        <div class="feedback-text" id="feedback-text">Enter your guess!</div>
+                    </div>
+
+                    <!-- Virtual Keypad (Smartphone design) -->
+                    <div class="keypad">
+                        <button class="key-btn" data-val="1">1</button>
+                        <button class="key-btn" data-val="2">2</button>
+                        <button class="key-btn" data-val="3">3</button>
+                        <button class="key-btn" data-val="4">4</button>
+                        <button class="key-btn" data-val="5">5</button>
+                        <button class="key-btn" data-val="6">6</button>
+                        <button class="key-btn" data-val="7">7</button>
+                        <button class="key-btn" data-val="8">8</button>
+                        <button class="key-btn" data-val="9">9</button>
+                        <button class="key-btn key-action" id="key-clear">C</button>
+                        <button class="key-btn" data-val="0">0</button>
+                        <button class="key-btn key-action key-enter" id="key-enter">OK</button>
+                    </div>
+
+                    <!-- Reveal Panel (Result) -->
+                    <div class="reveal-panel hidden" id="reveal-panel">
+                        <div class="divider"></div>
+
+                        <div class="result-headline" id="result-headline">Correct!</div>
+
+                        <!-- Token visualization -->
+                        <div class="token-visualization">
+                            <span class="vis-label" id="vis-label">Decomposed Result:</span>
+                            <div class="token-blocks" id="token-blocks">
+                                <!-- Generated by JS -->
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="btn-next">Next Element</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Information Footer -->
+        <footer class="game-footer">
+            <div class="footer-text">
+                <p id="footer-credit">This small game was developed by Adrian Ehrenhofer (with the help of vibecoding
+                    tools) to highlight aspects of tokenization in context of Materials Informatics. For the scientific
+                    background, refer
+                    to the publication <a
+                        href="https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/adem.202501876">"What do LLMs
+                        know about materials?"</a>. Meanwhile, enjoy the game!</p>
+                <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem;" id="footer-project">Tokens
+                    according to the <strong>Mistral-7B-v0.1</strong> tokenizer.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,691 @@
+/* Premium Sci-Fi & Glassmorphism Design System for Token-Rate-Spiel */
+
+:root {
+    --bg-main: #0b0f19;
+    --bg-surface: rgba(22, 30, 49, 0.75);
+    --bg-card: rgba(30, 41, 59, 0.5);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.4);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --color-accent: #6366f1; /* Indigo */
+    --color-success: #10b981; /* Emerald */
+    --color-error: #f43f5e; /* Rose */
+    --color-warning: #f59e0b; /* Amber */
+    
+    /* PSE Series Colors (Muted, cohesive palette with glow potentials) */
+    --color-nonmetal: #38bdf8;
+    --color-noble: #c084fc;
+    --color-alkali: #f43f5e;
+    --color-alkaline: #fb923c;
+    --color-metalloid: #fbbf24;
+    --color-halogen: #2dd4bf;
+    --color-post-transition: #34d399;
+    --color-transition: #94a3b8;
+    --color-lanthanide: #f472b6;
+    --color-actinide: #e879f9;
+    --color-unknown: #64748b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+}
+
+.app-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 1.5rem;
+}
+
+/* Header */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.header-title h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    background: linear-gradient(to right, #818cf8, #34d399);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 0.4rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    min-width: 90px;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Buttons */
+.btn {
+    font-family: inherit;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    color: white;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+    background: #4f46e5;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(148, 163, 184, 0.2);
+    color: var(--text-primary);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+/* Main Workspace layout */
+.game-workspace {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+@media (max-width: 1200px) {
+    .game-workspace {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Left Side: Periodic Table Section */
+.table-section {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling on smaller viewports */
+    padding-bottom: 0.5rem;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(45px, 1fr));
+    grid-template-rows: repeat(10, minmax(48px, 1fr));
+    gap: 5px;
+    min-width: 900px; /* Keep standard size for readability */
+}
+
+/* Element Cells */
+.element-cell {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3px 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.element-cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+}
+
+/* Accent top border colors for series */
+.element-cell.nonmetals::before { background: var(--color-nonmetal); }
+.element-cell.noblegases::before { background: var(--color-noble); }
+.element-cell.alkalimetals::before { background: var(--color-alkali); }
+.element-cell.alkalineearth::before { background: var(--color-alkaline); }
+.element-cell.metalloids::before { background: var(--color-metalloid); }
+.element-cell.halogens::before { background: var(--color-halogen); }
+.element-cell.posttransition::before { background: var(--color-post-transition); }
+.element-cell.transitionmetals::before { background: var(--color-transition); }
+.element-cell.lanthanides::before { background: var(--color-lanthanide); }
+.element-cell.actinides::before { background: var(--color-actinide); }
+.element-cell.unknown::before { background: var(--color-unknown); }
+
+.element-cell:hover {
+    transform: scale(1.08);
+    border-color: var(--text-primary);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+    z-index: 10;
+}
+
+.element-cell.selected {
+    transform: scale(1.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    background: rgba(99, 102, 241, 0.1);
+    z-index: 10;
+}
+
+.element-cell .cell-number {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.element-cell .cell-symbol {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-align: center;
+    margin: 2px 0;
+}
+
+.element-cell .cell-name {
+    font-size: 0.55rem;
+    text-align: center;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Grid Spacing Row */
+.table-spacer {
+    grid-column: span 18;
+    height: 12px;
+}
+
+/* Legend styling */
+.table-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.75rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.legend-color.nonmetals { background: var(--color-nonmetal); }
+.legend-color.noblegases { background: var(--color-noble); }
+.legend-color.alkalimetals { background: var(--color-alkali); }
+.legend-color.alkalineearth { background: var(--color-alkaline); }
+.legend-color.metalloids { background: var(--color-metalloid); }
+.legend-color.halogens { background: var(--color-halogen); }
+.legend-color.posttransition { background: var(--color-post-transition); }
+.legend-color.transitionmetals { background: var(--color-transition); }
+.legend-color.lanthanides { background: var(--color-lanthanide); }
+.legend-color.actinides { background: var(--color-actinide); }
+
+/* Right Side: Gameplay Section & Panel Cards */
+.gameplay-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-card {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.empty-state {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.icon-pulse {
+    font-size: 3.5rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(99,102,241,0.2)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(99,102,241,0.6)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(99,102,241,0.2)); }
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Active Game Panel */
+.active-game {
+    gap: 1.25rem;
+}
+
+.element-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+}
+
+.element-badge {
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    border: 2px solid var(--border-hover);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+.element-badge .atomic-number {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    line-height: 1;
+}
+
+.element-badge .symbol {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.element-details h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.series-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.guessing-prompt {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.guessing-prompt strong {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+}
+
+.display-container {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.input-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.input-display.ready {
+    color: var(--text-primary);
+}
+
+.feedback-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.feedback-text.correct { color: var(--color-success); }
+.feedback-text.incorrect { color: var(--color-error); }
+
+/* Virtual Keypad (Smartphone UI) */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.key-btn {
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.8rem 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    user-select: none;
+}
+
+.key-btn:hover {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: var(--border-hover);
+}
+
+.key-btn:active {
+    background: rgba(99, 102, 241, 0.3);
+    transform: scale(0.95);
+}
+
+.key-action {
+    background: rgba(15, 23, 42, 0.8);
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.key-enter {
+    background: var(--color-accent);
+    color: white;
+    font-weight: 700;
+}
+
+.key-enter:hover {
+    background: #4f46e5;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+/* Reveal Panel */
+.reveal-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 0.5rem 0;
+}
+
+.result-headline {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.result-headline.success { color: var(--color-success); }
+.result-headline.failure { color: var(--color-error); }
+
+.token-visualization {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.vis-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.token-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.token-block {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Special styling for space tokens in LLMs */
+.token-block.space-token {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #a7f3d0;
+}
+
+/* Footer */
+.game-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    gap: 1.5rem;
+}
+
+.footer-text {
+    line-height: 1.5;
+    text-align: right;
+}
+
+.footer-text strong {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .game-footer {
+        justify-content: center;
+        text-align: center;
+    }
+    .footer-text {
+        text-align: center;
+    }
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+/* Shake Animation for Wrong Answers */
+.shake {
+    animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+    40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+/* Confetti effect placeholder style */
+.correct-glow {
+    animation: greenGlow 0.5s ease-out;
+}
+
+@keyframes greenGlow {
+    0% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+    50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
+    100% { box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+}
+
+/* Language Switcher Styling */
+.lang-switch {
+    display: flex;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.lang-btn {
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.lang-btn:hover {
+    color: var(--text-primary);
+}
+
+.lang-btn.active {
+    background: var(--color-accent);
+    color: white;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+}
+
