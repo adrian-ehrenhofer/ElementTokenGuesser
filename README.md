@@ -8,9 +8,9 @@ Ein interaktives Browser-Spiel zum Erraten Token-Anzahl im Mistral-7B Tokenizer 
 
 ## Usage / Verwendung
 
-Simply open `index.html` in any modern web browser. No web server or external dependencies are required. Try it online at [https://ehrenhofer.github.io/elementtokenguesser/](https://ehrenhofer.github.io/elementtokenguesser/)!
+Simply open `index.html` in any modern web browser. No web server or external dependencies are required. Try it online at [https://adrian-ehrenhofer.github.io/ElementTokenGuesser/](https://adrian-ehrenhofer.github.io/ElementTokenGuesser/)!
 
-Öffne einfach `index.html` in einem beliebigen Webbrowser. Es werden keine Server oder externen Abhängigkeiten benötigt. Probiere es jetzt online aus unter [https://ehrenhofer.github.io/elementtokenguesser/](https://ehrenhofer.github.io/elementtokenguesser/)!
+Öffne einfach `index.html` in einem beliebigen Webbrowser. Es werden keine Server oder externen Abhängigkeiten benötigt. Probiere es jetzt online aus unter [https://adrian-ehrenhofer.github.io/ElementTokenGuesser/](https://adrian-ehrenhofer.github.io/ElementTokenGuesser/)!
 
 ## Features / Funktionen
 
